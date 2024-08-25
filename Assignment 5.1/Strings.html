@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Author: Gabriel Hiott -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="Strings.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Palindrome Checker</h1>
+        <!-- Input field for the user to enter a string -->
+        <input type="text" id="userInput" placeholder="Enter a word or phrase">
+        <!-- Button to check if the input is a palindrome -->
+        <button onclick="checkPalindrome()">Check</button>
+        <!-- Button to reset the input field and result -->
+        <button onclick="reset()">Reset</button>
+        <!-- Area to display the result -->
+        <div id="result"></div>
+        <!-- Button to play background music -->
+        <button onclick="startAudio()">Play BGM</button>
+        <!-- Audio element for background music -->
+        <audio id="background-audio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // Function to check if the input string is a palindrome
+        function checkPalindrome() {
+            // Get the user's input
+            let input = document.getElementById('userInput').value;
+            // Remove spaces and convert to lowercase for accurate comparison
+            let sanitizedInput = input.replace(/\s+/g, '').toLowerCase();
+            // Reverse the sanitized input
+            let reversedInput = sanitizedInput.split('').reverse().join('');
+            // Check if the sanitized input is equal to the reversed input
+            if (sanitizedInput === reversedInput) {
+                document.getElementById('result').innerHTML = `"${input}" is a palindrome!`;
+            } else {
+                document.getElementById('result').innerHTML = `"${input}" is not a palindrome.`;
+            }
+        }
+
+        // Function to reset the input field and result area
+        function reset() {
+            document.getElementById('userInput').value = '';
+            document.getElementById('result').innerHTML = '';
+        }
+
+        // Function to play background music
+        function startAudio() {
+            var audio = document.getElementById('background-audio');
+            audio.play().then(function() {
+                console.log("Audio is playing!");
+            }).catch(function(error) {
+                console.error("Playback error:", error);
+            });
+        }
+    </script>
+</body>
+</html>

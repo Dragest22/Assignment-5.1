@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Author: Gabriel Hiott -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Validation</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="StringsNew.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Enter Your Information</h1>
+        
+        <!-- Form for user input -->
+        <form onsubmit="return validateForm()">
+            <!-- Input for first name -->
+            <input type="text" id="firstName" placeholder="Enter your first name" required><br><br>
+            <!-- Input for last name -->
+            <input type="text" id="lastName" placeholder="Enter your last name" required><br><br>
+            <!-- Input for zip code -->
+            <input type="text" id="zipCode" placeholder="Enter your zip code" required><br><br>
+            <!-- Button to submit the form and validate inputs -->
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Area to display warnings and results -->
+        <div id="warning"></div>
+        <div id="result"></div>
+
+        <!-- Button to play background music -->
+        <button onclick="startAudio()">Play BGM</button>
+        <!-- Audio element for background music -->
+        <audio id="background-audio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // Function to validate the form inputs
+        function validateForm() {
+        // Get user input values
+        let firstName = document.getElementById('firstName').value.trim();
+        let lastName = document.getElementById('lastName').value.trim();
+        let zipCode = document.getElementById('zipCode').value.trim();
+        let fullName = firstName + " " + lastName;
+
+        // Clear previous warnings
+        document.getElementById('warning').innerHTML = "";
+
+        // Check if the full name is longer than 20 characters
+        if (fullName.length > 20) {
+            document.getElementById('warning').innerHTML = "Warning: Your full name is too long (more than 20 characters). Please shorten it.";
+            return false; // Prevent form submission
+        }
+
+        // Check if the zip code is exactly 5 digits long
+        if (!/^\d{5}$/.test(zipCode)) {
+            document.getElementById('warning').innerHTML = "Warning: Your zip code must be exactly 5 digits.";
+            return false; // Prevent form submission
+        }
+
+        // If all inputs are valid, clear any warnings and show the secret message
+        document.getElementById('result').innerHTML = "Welcome, " + fullName + "! You've unlocked the secret message: Keep exploring the wonders of code!";
+        return false; // Prevent form submission to keep the message visible
+    }
+
+    // Optional: Add an event listener to clear warnings as the user types
+    document.getElementById('firstName').addEventListener('input', clearWarnings);
+    document.getElementById('lastName').addEventListener('input', clearWarnings);
+    document.getElementById('zipCode').addEventListener('input', clearWarnings);
+
+    function clearWarnings() {
+        document.getElementById('warning').innerHTML = "";
+    }
+
+    // Function to play background music
+    function startAudio() {
+        var audio = document.getElementById('background-audio');
+        audio.play().then(function() {
+            console.log("Audio is playing!");
+        }).catch(function(error) {
+            console.error("Playback error:", error);
+        });
+    }
+    </script>
+</body>
+</html>
